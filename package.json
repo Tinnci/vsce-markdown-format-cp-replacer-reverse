@@ -3,7 +3,7 @@
 	"publisher": "vinvincent",
 	"displayName": "markdown-format-cp-replacer",
 	"description": "replace some Chinese punctuation with English punctuation",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"icon": "logo.png",
 	"engines": {
 		"vscode": "^1.55.0"
@@ -18,6 +18,16 @@
 		"onLanguage:markdown"
 	],
 	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": {
+			"command": "vinvincent.replace",
+			"title": "markdown cp replacer"
+		},
+		"keybindings": {
+			"command": "vinvincent.replace",
+			"key": "alt+f"
+		}
+	},
 	"scripts": {
 		"vscode:prepublish": "yarn run package",
 		"compile": "webpack",
