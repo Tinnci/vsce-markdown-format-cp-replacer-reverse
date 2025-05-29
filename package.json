@@ -1,6 +1,6 @@
 {
 	"name": "vsce-markdown-format-cp-replacer-reverse",
-	"publisher": "Tinnci",
+	"publisher": "Soratsu",
 	"displayName": "vsce-markdown-format-cp-replacer-reverse",
 	"description": "replace some English punctuation with Chinese punctuation",
 	"version": "0.0.2",
@@ -20,11 +20,11 @@
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": {
-			"command": "tinnci.replace",
+			"command": "soratsu.replace",
 			"title": "markdown cp replacer"
 		},
 		"keybindings": {
-			"command": "tinnci.replace",
+			"command": "soratsu.replace",
 			"key": "alt+f"
 		}
 	},
