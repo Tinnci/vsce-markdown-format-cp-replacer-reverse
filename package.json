@@ -35,10 +35,6 @@
 			{
 				"command": "soratsu.replace.selection.reverse",
 				"title": "%soratsu.replace.selection.reverse.title%"
-			},
-			{
-				"command": "markdown-cp-replacer.submenu",
-				"title": "%submenu.label%"
 			}
 		],
 		"keybindings": [
