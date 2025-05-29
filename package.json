@@ -6,7 +6,7 @@
 	"version": "0.0.2",
 	"icon": "logo.png",
 	"engines": {
-		"vscode": "^1.55.0"
+		"vscode": "^1.100.0"
 	},
 	"repository": {
 		"url": "https://github.com/Tinnci/vsce-markdown-format-cp-replacer-reverse.git"
