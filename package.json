@@ -3,7 +3,7 @@
 	"publisher": "Soratsu",
 	"displayName": "vsce-markdown-format-cp-replacer-reverse",
 	"description": "replace some English punctuation with Chinese punctuation",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"icon": "logo.png",
 	"engines": {
 		"vscode": "^1.96.0"
