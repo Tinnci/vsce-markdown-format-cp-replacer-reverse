@@ -1,27 +1,28 @@
 import * as vscode from "vscode";
 // const fs = require("fs"); // Not needed if using vscode.WorkspaceEdit
 
-const CP = ["，", "：", "？", "！", "。", "（", "）"];
-const EP = [",", ":", "?", "!", ".", "(", ")"];
+// Removed global map and its initialization
+// const CP = ["，", "：", "？", "！", "。", "（", "）"];
+// const EP = [",", ":", "?", "!", ".", "(", ")"];
+// const map = new Map();
+// let len = EP.length;
+// for (let i = 0; i < len; i++) {
+//   map.set(EP[i], CP[i]);
+// }
 
-const map = new Map();
-let len = EP.length;
-for (let i = 0; i < len; i++) {
-  map.set(EP[i], CP[i]);
-}
-
+// 1. 文本处理函数
 function processText(
     text: string,
     rulesMap: Map<string, string>,
-    handleQuotes: boolean
+    handleQuotes: boolean,
+    isReverse: boolean // Added isReverse parameter
 ): { newContent: string; replacementCount: number } {
     // 1. 屏蔽无需处理的内容
     const placeholders = new Map<string, string>();
     let placeholderId = 0;
     let processedText = text;
-
     // 正则表达式匹配代码块、行内代码和链接等
-    const markdownElementsRegex = /(```[\s\S]*?```)|(`[^`\n]+`)|(\[.*?]\(.*?\))|(!\[.*?]\(.*?\))/gm; // Corrected regex for links/images
+    const markdownElementsRegex = /(```[\s\S]*?```)|(`[^`\n]+`)|(\[.*?]\(.*?\))|(!\[.*?]\(.*?\))/gm;
 
     processedText = processedText.replace(markdownElementsRegex, (match) => {
         const placeholder = `__MD_REPLACER_PLACEHOLDER_${placeholderId++}__`;
@@ -29,7 +30,7 @@ function processText(
         return placeholder;
     });
 
-    // 2. 在处理过的文本上执行你的标点替换逻辑
+    // 2. 标点替换逻辑
     let charArr = processedText.split("");
     let inQuote = false; // State variable to track if currently inside quotes
     let replacementCount = 0; // Counter for replacements
@@ -37,7 +38,9 @@ function processText(
     for (let i = 0; i < charArr.length; i++) {
         let char = charArr[i];
 
-        if (handleQuotes && char === '"') {
+        // Improved quote handling logic
+        if (handleQuotes && !isReverse && char === '"') {
+            // Forward quote replacement
             if (!inQuote) {
                 charArr[i] = "“"; // Replace with Chinese left quote
                 inQuote = true;
@@ -45,6 +48,10 @@ function processText(
                 charArr[i] = "”"; // Replace with Chinese right quote
                 inQuote = false;
             }
+            replacementCount++;
+        } else if (handleQuotes && isReverse && (char === "“" || char === "”")) {
+            // Reverse quote replacement
+            charArr[i] = '"'; // Replace with English double quote
             replacementCount++;
         } else if (rulesMap.has(char)) { // Use rulesMap instead of global map
             // Handle other punctuation marks using the provided rules map
@@ -69,7 +76,7 @@ function processText(
 }
 
 // 2. 创建一个通用的执行函数
-async function executeReplace(scope: 'all' | 'selection') {
+async function executeReplace(scope: 'all' | 'selection', isReverse = false) { // Added isReverse parameter with default
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
         vscode.window.showWarningMessage("请先打开一个文件！");
@@ -90,8 +97,15 @@ async function executeReplace(scope: 'all' | 'selection') {
     const handleQuotes: boolean = configuration.get('handleQuotes', true);
 
     const rulesMap = new Map();
-    for (const rule of ruleConfigs) {
-        rulesMap.set(rule.from, rule.to);
+    // Build rulesMap based on isReverse
+    if (isReverse) {
+        for (const rule of ruleConfigs) {
+            rulesMap.set(rule.to, rule.from); // Reverse mapping
+        }
+    } else {
+        for (const rule of ruleConfigs) {
+            rulesMap.set(rule.from, rule.to); // Forward mapping
+        }
     }
 
 
@@ -109,8 +123,8 @@ async function executeReplace(scope: 'all' | 'selection') {
 
     for (const range of rangesToProcess) {
         const originalText = document.getText(range);
-        // Pass rulesMap and handleQuotes to processText
-        const result = processText(originalText, rulesMap, handleQuotes);
+        // Pass rulesMap, handleQuotes, and isReverse to processText
+        const result = processText(originalText, rulesMap, handleQuotes, isReverse);
 
         if (originalText !== result.newContent) {
             edit.replace(document.uri, range, result.newContent);
@@ -120,23 +134,40 @@ async function executeReplace(scope: 'all' | 'selection') {
 
     if (totalReplacements > 0) {
         await vscode.workspace.applyEdit(edit);
-        vscode.window.showInformationMessage(`中文标点符号替换完成！共替换了 ${totalReplacements} 个标点符号。`);
+        // Use more specific messages
+        const message = isReverse
+            ? `中文标点已反向替换为英文标点！共处理 ${totalReplacements} 个。`
+            : `英文标点已替换为中文标点！共处理 ${totalReplacements} 个。`;
+        vscode.window.showInformationMessage(message);
     } else {
         vscode.window.showInformationMessage("在指定范围内没有找到可替换的标点符号。");
     }
 }
 
-// 3. 在 activate 函数中注册这两个命令
+// 3. 在 activate 函数中注册所有命令
 export function activate(context: vscode.ExtensionContext) {
+    // Removed global map and its initialization
+
     context.subscriptions.push(
         vscode.commands.registerCommand("soratsu.replace.all", () => {
-            executeReplace('all');
+            executeReplace('all', false); // Forward, all
+        })
+    );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("soratsu.replace.selection", () => {
+            executeReplace('selection', false); // Forward, selection
         })
     );
 
+    // Register reverse commands
     context.subscriptions.push(
-        vscode.commands.registerCommand("soratsu.replace.selection", () => {
-            executeReplace('selection');
+        vscode.commands.registerCommand("soratsu.replace.all.reverse", () => {
+            executeReplace('all', true); // Reverse, all
+        })
+    );
+    context.subscriptions.push(
+        vscode.commands.registerCommand("soratsu.replace.selection.reverse", () => {
+            executeReplace('selection', true); // Reverse, selection
         })
     );
 }
