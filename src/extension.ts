@@ -11,7 +11,7 @@ for (let i = 0; i < len; i++) {
 }
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("vinvincent.replace", () => {
+    vscode.commands.registerCommand("soratsu.replace", () => {
       let fileName: string | undefined =
         vscode.window.activeTextEditor?.document.fileName;
       const text = fs.readFileSync(fileName).toString();

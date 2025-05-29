@@ -6,7 +6,7 @@
 	"version": "0.0.2",
 	"icon": "logo.png",
 	"engines": {
-		"vscode": "^1.100.0"
+		"vscode": "^1.96.0"
 	},
 	"repository": {
 		"url": "https://github.com/Tinnci/vsce-markdown-format-cp-replacer-reverse.git"
@@ -44,7 +44,7 @@
 		"@types/glob": "^8.1.0",
 		"@types/mocha": "^10.0.10",
 		"@types/node": "^22.15.24",
-		"@types/vscode": "^1.100.0",
+		"@types/vscode": "^1.96.0",
 		"@typescript-eslint/eslint-plugin": "^8.33.0",
 		"@typescript-eslint/parser": "^8.33.0",
 		"@vscode/test-cli": "^0.0.11",
