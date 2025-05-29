@@ -26,7 +26,7 @@
 			},
 			{
 				"command": "soratsu.replace.selection",
-				"title": "%soratsu.replace.selection.selection%"
+				"title": "%soratsu.replace.selection.title%"
 			},
 			{
 				"command": "soratsu.replace.all.reverse",
