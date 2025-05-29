@@ -7,7 +7,7 @@ const EP = [",", ":", "?", "!", ".", '"', '"', "(", ")"];
 const map = new Map();
 let len = CP.length;
 for (let i = 0; i < len; i++) {
-  map.set(CP[i], EP[i]);
+  map.set(EP[i], CP[i]);
 }
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(

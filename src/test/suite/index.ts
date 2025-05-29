@@ -1,8 +1,9 @@
 import * as path from 'path';
-import * as Mocha from 'mocha';
-import * as glob from 'glob';
+import Mocha from 'mocha';
+import { globSync } from 'glob';
+import { runTests } from '@vscode/test-electron';
 
-export function run(): Promise<void> {
+async function main() {
 	// Create the mocha test
 	const mocha = new Mocha({
 		ui: 'tdd',
@@ -11,28 +12,26 @@ export function run(): Promise<void> {
 
 	const testsRoot = path.resolve(__dirname, '..');
 
-	return new Promise((c, e) => {
-		glob('**/**.test.js', { cwd: testsRoot }, (err, files) => {
-			if (err) {
-				return e(err);
-			}
+	// Use globSync to find test files
+	const files: string[] = globSync('**/**.test.js', { cwd: testsRoot });
 
-			// Add files to the test suite
-			files.forEach(f => mocha.addFile(path.resolve(testsRoot, f)));
+	// Add files to the mocha run
+	files.forEach((f: string) => mocha.addFile(path.resolve(testsRoot, f)));
 
-			try {
-				// Run the mocha test
-				mocha.run(failures => {
-					if (failures > 0) {
-						e(new Error(`${failures} tests failed.`));
-					} else {
-						c();
-					}
-				});
-			} catch (err) {
-				console.error(err);
-				e(err);
+	// Run the mocha tests
+	try {
+		mocha.run((failures: number) => {
+			if (failures > 0) {
+				console.error(`${failures} tests failed.`);
+				process.exit(1);
+			} else {
+				process.exit(0);
 			}
 		});
-	});
+	} catch (err: any) { // Explicitly type err as any for now
+		console.error('Failed to run tests');
+		process.exit(1);
+	}
 }
+
+main();
