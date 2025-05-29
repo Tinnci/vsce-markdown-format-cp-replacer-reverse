@@ -37,23 +37,25 @@
 		"test-watch": "pnpm tsc -watch -p ./",
 		"pretest": "pnpm run test-compile && pnpm run lint",
 		"lint": "pnpm eslint src --ext ts",
-		"test": "pnpm node ./out/test/runTest.js"
+		"test": "pnpm vscode-test"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.2.0",
-		"@types/mocha": "^8.2.3",
-		"@types/node": "*",
+		"@stylistic/eslint-plugin": "^4.4.0",
+		"@types/glob": "^8.1.0",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "^22.15.24",
 		"@types/vscode": "^1.100.0",
-		"@typescript-eslint/eslint-plugin": "^7.0.0",
-		"@typescript-eslint/parser": "^7.0.0",
+		"@typescript-eslint/eslint-plugin": "^8.33.0",
+		"@typescript-eslint/parser": "^8.33.0",
+		"@vscode/test-cli": "^0.0.11",
 		"@vscode/test-electron": "^2.5.2",
-		"eslint": "^8.57.0",
-		"glob": "^10.3.10",
-		"mocha": "^8.4.0",
-		"ts-loader": "^8.4.0",
-		"typescript": "*",
-		"webpack": "^5.19.0",
-		"webpack-cli": "^4.10.0"
+		"eslint": "^9.27.0",
+		"glob": "^11.0.2",
+		"mocha": "^11.5.0",
+		"ts-loader": "^9.5.2",
+		"typescript": "^5.8.3",
+		"webpack": "^5.99.9",
+		"webpack-cli": "^6.0.1"
 	},
 	"license": "MIT",
 	"packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
