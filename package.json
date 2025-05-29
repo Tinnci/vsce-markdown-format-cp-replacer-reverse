@@ -20,11 +20,11 @@
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": {
-			"command": "vinvincent.replace",
+			"command": "tinnci.replace",
 			"title": "markdown cp replacer"
 		},
 		"keybindings": {
-			"command": "vinvincent.replace",
+			"command": "tinnci.replace",
 			"key": "alt+f"
 		}
 	},
