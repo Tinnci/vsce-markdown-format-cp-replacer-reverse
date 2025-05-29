@@ -19,14 +19,51 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
-		"commands": {
-			"command": "soratsu.replace",
-			"title": "markdown cp replacer"
-		},
-		"keybindings": {
-			"command": "soratsu.replace",
-			"key": "alt+f"
-		}
+		"commands": [
+			{
+				"command": "soratsu.replace.all",
+				"title": "Markdown CP Replacer: Replace in Full Document"
+			},
+			{
+				"command": "soratsu.replace.selection",
+				"title": "Markdown CP Replacer: Replace in Selection"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "soratsu.replace.all",
+				"key": "alt+f",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "soratsu.replace.selection",
+				"key": "alt+s",
+				"when": "editorTextFocus && editorHasSelection"
+			}
+		],
+		"configuration": {
+            "title": "Markdown CP Replacer",
+            "properties": {
+                "markdown-cp-replacer.rules": {
+                    "type": "array",
+                    "default": [
+                        { "from": ",", "to": "，" },
+                        { "from": ":", "to": "：" },
+                        { "from": "?", "to": "？" },
+                        { "from": "!", "to": "！" },
+                        { "from": ".", "to": "。" },
+                        { "from": "(", "to": "（" },
+                        { "from": ")", "to": "）" }
+                    ],
+                    "description": "自定义中英文标点替换规则。"
+                },
+                "markdown-cp-replacer.handleQuotes": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "是否将英文双引号 `\"` 替换为中文引号 `“` 和 `”`。"
+                }
+            }
+        }
 	},
 	"scripts": {
 		"vscode:prepublish": "pnpm run package",
