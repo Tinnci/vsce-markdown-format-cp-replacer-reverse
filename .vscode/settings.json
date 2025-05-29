@@ -11,6 +11,7 @@
     "workbench.colorCustomizations": {
     },
     "i18n-ally.localesPaths": [
-        "i18n"
+        "i18n",
+        "D:/vsce-markdown-format-cp-replacer-reverse"
     ]
 }
