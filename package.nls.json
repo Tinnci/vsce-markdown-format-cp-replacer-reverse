@@ -5,6 +5,6 @@
     "soratsu.replace.selection.reverse.title": "Markdown CP Replacer: Reverse Replace in Selection",
     "configuration.title": "Markdown CP Replacer",
     "configuration.rules.description": "Custom replacement rules for Chinese and English punctuation.",
-    "configuration.handleQuotes.description": "Whether to replace English double quotes `\"` with Chinese quotes `\"` and `\"`. ",
+    "configuration.handleQuotes.description": "Whether to replace English double quotes \" with Chinese quotes “ and ”.",
     "submenu.label": "Markdown CP Replacer"
 } 
