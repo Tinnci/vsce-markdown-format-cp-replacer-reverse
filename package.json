@@ -35,6 +35,10 @@
 			{
 				"command": "soratsu.replace.selection.reverse",
 				"title": "%soratsu.replace.selection.reverse.title%"
+			},
+			{
+				"command": "markdown-cp-replacer.submenu",
+				"title": "%submenu.label%"
 			}
 		],
 		"keybindings": [
@@ -102,9 +106,8 @@
 		"menus": {
 			"commandPalette": [
 				{
-					"submenu": "markdown-cp-replacer.submenu",
-					"when": "editorLangId == markdown",
-					"group": "1_modification"
+					"command": "markdown-cp-replacer.submenu",
+					"when": "editorLangId == markdown"
 				}
 			],
 			"markdown-cp-replacer.submenu": [
