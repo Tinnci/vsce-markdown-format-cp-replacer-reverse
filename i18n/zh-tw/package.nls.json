@@ -1,0 +1,10 @@
+{
+    "soratsu.replace.all.title": "Markdown 標點替換：替換整個文件",
+    "soratsu.replace.selection.title": "Markdown 標點替換：替換選取範圍",
+    "soratsu.replace.all.reverse.title": "Markdown 標點替換：反向替換整個文件",
+    "soratsu.replace.selection.reverse.title": "Markdown 標點替換：反向替換選取範圍",
+    "configuration.title": "Markdown 標點替換器",
+    "configuration.rules.description": "自定義中英文標點替換規則。",
+    "configuration.handleQuotes.description": "是否將英文雙引號 \" 替換為中文引號 「 和 」。",
+    "submenu.label": "Markdown 標點替換"
+} 

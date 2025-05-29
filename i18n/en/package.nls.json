@@ -1,0 +1,10 @@
+{
+    "soratsu.replace.all.title": "Markdown CP Replacer: Replace in Full Document",
+    "soratsu.replace.selection.title": "Markdown CP Replacer: Replace in Selection",
+    "soratsu.replace.all.reverse.title": "Markdown CP Replacer: Reverse Replace in Full Document",
+    "soratsu.replace.selection.reverse.title": "Markdown CP Replacer: Reverse Replace in Selection",
+    "configuration.title": "Markdown CP Replacer",
+    "configuration.rules.description": "Custom replacement rules for Chinese and English punctuation.",
+    "configuration.handleQuotes.description": "Whether to replace English double quotes `\"` with Chinese quotes `\"` and `\"`. ",
+    "submenu.label": "Markdown CP Replacer"
+} 
